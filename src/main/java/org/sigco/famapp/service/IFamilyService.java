@@ -16,4 +16,10 @@ public interface IFamilyService {
 	FamilyDto update(FamilyDto familyDto) throws NotFoundException;
 
 	void delete(FamilyDto familyDto) throws NotFoundException;
+
+	FamilyDto findFamilyByFamilyname(String familyName);
+
+	boolean isFamiliyPresent(String familyName);
+
+	void updateFamilyMembers(int id, String FamilyName);
 }

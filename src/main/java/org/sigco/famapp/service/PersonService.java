@@ -1,6 +1,7 @@
 package org.sigco.famapp.service;
 
 import com.google.common.collect.Lists;
+import org.sigco.famapp.dto.FamilyDto;
 import org.sigco.famapp.dto.PersonDto;
 import org.sigco.famapp.exception.ConflictException;
 import org.sigco.famapp.exception.NotFoundException;
@@ -8,6 +9,7 @@ import org.sigco.famapp.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,10 +17,13 @@ public class PersonService implements IPersonService{
 	@Autowired
 	private PersonRepository PersonRepository;
 
+	@Autowired
+	private FamilyService familyService;
+
 	@Override
 	public PersonDto findOneById(int id) throws NotFoundException {
 		if (PersonRepository.findOneById(id) == null) {
-			throw new NotFoundException("No family with id found");
+			throw new NotFoundException("No person with id found");
 		} else {
 			return PersonRepository.findOneById(id);
 		}
@@ -26,11 +31,14 @@ public class PersonService implements IPersonService{
 
 	@Override
 	public PersonDto create(PersonDto personDto) throws ConflictException {
-		if (PersonRepository.findOneById(personDto.getId()) != null) {
-			throw new ConflictException("Family already exists");
+		if (familyService.isFamiliyPresent(personDto.getLastName())) {
+			familyService.updateFamilyMembers(personDto.getId(), personDto.getLastName());
 		} else {
-			return PersonRepository.save(new PersonDto(personDto.getFirstName(), personDto.getLastName()));
+			List<Integer> members = new ArrayList<>();
+			members.add(personDto.getId());
+			familyService.create(new FamilyDto(personDto.getLastName(), members));
 		}
+		return PersonRepository.save(personDto);
 	}
 
 	@Override

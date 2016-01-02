@@ -56,4 +56,18 @@ public class FamilyService implements IFamilyService {
 		return Lists.newArrayList(familyRepository.findAll());
 	}
 
+	@Override
+	public FamilyDto findFamilyByFamilyname (String familyName) {
+		return familyRepository.getFamilyByName(familyName);
+	}
+
+	@Override
+	public boolean isFamiliyPresent(String familyName) {
+		return findFamilyByFamilyname(familyName) == null;
+	}
+
+	@Override
+	public void updateFamilyMembers(int id, String familyName) {
+		familyRepository.updateFamilyMembers(id, familyName);
+	}
 }
