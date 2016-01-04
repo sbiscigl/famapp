@@ -1,5 +1,8 @@
 package org.sigco.famapp.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.collect.Lists;
 import org.sigco.famapp.dto.FamilyDto;
 import org.sigco.famapp.dto.PersonDto;
@@ -8,9 +11,6 @@ import org.sigco.famapp.exception.NotFoundException;
 import org.sigco.famapp.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class PersonService implements IPersonService{
@@ -31,7 +31,7 @@ public class PersonService implements IPersonService{
 
 	@Override
 	public PersonDto create(PersonDto personDto) throws ConflictException {
-		if (familyService.isFamiliyPresent(personDto.getLastName())) {
+		if (!familyService.isFamiliyPresent(personDto.getLastName())) {
 			familyService.updateFamilyMembers(personDto.getId(), personDto.getLastName());
 		} else {
 			List<Integer> members = new ArrayList<>();

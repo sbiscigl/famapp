@@ -16,6 +16,7 @@ CREATE TABLE persondto (
 CREATE TABLE familydto (
     id int,
     familyname varchar,
-    personid int,
-    primary key (id, personid)
+    members list<int>,
+    primary key (id)
 ) WITH comment = 'A table of families';
+CREATE INDEX family_name_index ON familydto (familyname);
