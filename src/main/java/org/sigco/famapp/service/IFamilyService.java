@@ -21,5 +21,5 @@ public interface IFamilyService {
 
 	boolean isFamiliyPresent(String familyName);
 
-	void updateFamilyMembers(int id, String FamilyName);
+	void updateFamilyMembers(int id, int personId);
 }

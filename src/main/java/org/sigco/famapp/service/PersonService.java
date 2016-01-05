@@ -31,14 +31,16 @@ public class PersonService implements IPersonService{
 
 	@Override
 	public PersonDto create(PersonDto personDto) throws ConflictException {
-		if (!familyService.isFamiliyPresent(personDto.getLastName())) {
-			familyService.updateFamilyMembers(personDto.getId(), personDto.getLastName());
+		PersonDto createdDto = PersonRepository.save(personDto);
+		if (!familyService.isFamiliyPresent(createdDto.getLastName())) {
+			int familyId = familyService.findFamilyByFamilyname(createdDto.getLastName()).getId();
+			familyService.updateFamilyMembers(familyId, createdDto.getId());
 		} else {
 			List<Integer> members = new ArrayList<>();
-			members.add(personDto.getId());
-			familyService.create(new FamilyDto(personDto.getLastName(), members));
+			members.add(createdDto.getId());
+			familyService.create(new FamilyDto(createdDto.getLastName(), members));
 		}
-		return PersonRepository.save(personDto);
+		return createdDto;
 	}
 
 	@Override

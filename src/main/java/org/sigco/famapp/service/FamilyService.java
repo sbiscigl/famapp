@@ -4,11 +4,14 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import org.sigco.famapp.dto.FamilyDto;
+import org.sigco.famapp.dto.PersonDto;
 import org.sigco.famapp.exception.ConflictException;
 import org.sigco.famapp.exception.NotFoundException;
 import org.sigco.famapp.repository.FamilyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.validation.constraints.NotNull;
 
 @Service
 public class FamilyService implements IFamilyService {
@@ -68,7 +71,9 @@ public class FamilyService implements IFamilyService {
 
 	@Override
 	/*TODO: THIS LOGIC*/
-	public void updateFamilyMembers(int id, String familyName) {
-		familyRepository.updateFamilyMembers(id, familyName);
+	public void updateFamilyMembers(int id, int personId) {
+		FamilyDto familyDto = familyRepository.findOneById(id);
+		familyDto.getMembers().add(personId);
+		familyRepository.save(familyDto);
 	}
 }
