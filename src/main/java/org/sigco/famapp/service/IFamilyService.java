@@ -19,6 +19,8 @@ public interface IFamilyService {
 
 	FamilyDto findFamilyByFamilyname(String familyName);
 
+	FamilyDto findByFamilyName(String familyName);
+
 	boolean isFamiliyPresent(String familyName);
 
 	void updateFamilyMembers(int id, int personId);

@@ -68,7 +68,11 @@ public class FamilyService implements IFamilyService {
 	}
 
 	@Override
-	/*TODO: THIS LOGIC*/
+	public FamilyDto findByFamilyName(String familyName) {
+		return findFamilyByFamilyname(familyName);
+	}
+
+	@Override
 	public void updateFamilyMembers(int id, int personId) {
 		FamilyDto familyDto = familyRepository.findOneById(id);
 		List<Integer> members = new ArrayList<>();

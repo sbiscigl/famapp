@@ -8,15 +8,10 @@ import org.sigco.famapp.exception.NotFoundException;
 import org.sigco.famapp.service.FamilyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by sbisciglia on 12/30/15.
- */
+@RestController
+@RequestMapping(value = "/families")
 public class FamilyController {
 	@Autowired
 	FamilyService familySerivce;
@@ -32,11 +27,10 @@ public class FamilyController {
 		return familySerivce.findOneById(id);
 	}
 
-	/*TODO: Impliment this*/
-//	@RequestMapping(value = "", method = RequestMethod.GET, params = {"familyName"})
-//	public FamilyDto findByFamilyName( @RequestParam(value = "familyName") String familyName) throws NotFoundException {
-//		return familySerivce.findByFamilyName(familyName).get();
-//	}
+	@RequestMapping(value = "", method = RequestMethod.GET, params = {"familyName"})
+	public FamilyDto findByFamilyName( @RequestParam(value = "familyName") String familyName) throws NotFoundException {
+		return familySerivce.findByFamilyName(familyName);
+	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<FamilyDto> findAll() {
