@@ -1,6 +1,7 @@
 package org.sigco.famapp.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.sigco.famapp.dto.FamilyDto;
 import org.sigco.famapp.exception.ConflictException;
@@ -23,7 +24,7 @@ public class FamilyController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public FamilyDto findById( @PathVariable(value = "id") int id) throws NotFoundException {
+	public FamilyDto findById( @PathVariable(value = "id") UUID id) throws NotFoundException {
 		return familySerivce.findOneById(id);
 	}
 

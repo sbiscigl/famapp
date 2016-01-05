@@ -1,6 +1,7 @@
 package org.sigco.famapp.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.sigco.famapp.dto.FamilyDto;
 import org.sigco.famapp.exception.ConflictException;
@@ -9,7 +10,7 @@ import org.sigco.famapp.exception.NotFoundException;
 public interface IFamilyService {
 	FamilyDto create(FamilyDto familyDto) throws ConflictException;
 
-	FamilyDto findOneById(int id) throws NotFoundException;
+	FamilyDto findOneById(UUID id) throws NotFoundException;
 
 	List<FamilyDto> findAll();
 
@@ -23,5 +24,5 @@ public interface IFamilyService {
 
 	boolean isFamiliyPresent(String familyName);
 
-	void updateFamilyMembers(int id, int personId);
+	void updateFamilyMembers(UUID id, UUID personId);
 }

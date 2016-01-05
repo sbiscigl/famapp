@@ -1,10 +1,10 @@
 package org.sigco.famapp.dto;
 
 import java.util.List;
+import java.util.UUID;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.sigco.famapp.util.IdGenerator;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
@@ -13,20 +13,20 @@ import org.springframework.data.cassandra.mapping.Table;
 @Table
 public class FamilyDto {
 	@PrimaryKey
-	private int id;
+	private UUID id;
 
 	private String familyName;
-	private List<Integer> members;
+	private List<UUID> members;
 
-	public FamilyDto() {id = IdGenerator.generateId();}
+	public FamilyDto() {id = UUID.randomUUID();}
 
-	public FamilyDto(String familyName, List<Integer> members) {
-		this.id = IdGenerator.generateId();
+	public FamilyDto(String familyName, List<UUID> members) {
+		this.id = UUID.randomUUID();
 		this.familyName = familyName;
 		this.members = members;
 	}
 
-	public FamilyDto(int id, String familyName, List<Integer> members) {
+	public FamilyDto(UUID id, String familyName, List<UUID> members) {
 		this.id = id;
 		this.familyName = familyName;
 		this.members = members;

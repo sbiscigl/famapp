@@ -7,16 +7,16 @@ USE families;
 
 --Create people table
 CREATE TABLE persondto (
-    id int primary key,
+    id uuid primary key,
     firstname varchar,
     lastname varchar,
 ) WITH comment = 'A table of people';
 
 --Create family table
 CREATE TABLE familydto (
-    id int,
+    id uuid,
     familyname varchar,
-    members list<int>,
+    members list<uuid>,
     primary key (id)
 ) WITH comment = 'A table of families';
 CREATE INDEX family_name_index ON familydto (familyname);

@@ -2,6 +2,7 @@ package org.sigco.famapp.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.google.common.collect.Lists;
 import org.sigco.famapp.dto.FamilyDto;
@@ -21,7 +22,7 @@ public class PersonService implements IPersonService{
 	private FamilyService familyService;
 
 	@Override
-	public PersonDto findOneById(int id) throws NotFoundException {
+	public PersonDto findOneById(UUID id) throws NotFoundException {
 		if (PersonRepository.findOneById(id) == null) {
 			throw new NotFoundException("No person with id found");
 		} else {
@@ -33,10 +34,10 @@ public class PersonService implements IPersonService{
 	public PersonDto create(PersonDto personDto) throws ConflictException {
 		PersonDto createdDto = PersonRepository.save(personDto);
 		if (!familyService.isFamiliyPresent(createdDto.getLastName())) {
-			int familyId = familyService.findFamilyByFamilyname(createdDto.getLastName()).getId();
+			UUID familyId = familyService.findFamilyByFamilyname(createdDto.getLastName()).getId();
 			familyService.updateFamilyMembers(familyId, createdDto.getId());
 		} else {
-			List<Integer> members = new ArrayList<>();
+			List<UUID> members = new ArrayList<>();
 			members.add(createdDto.getId());
 			familyService.create(new FamilyDto(createdDto.getLastName(), members));
 		}

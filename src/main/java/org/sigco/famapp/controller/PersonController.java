@@ -1,6 +1,7 @@
 package org.sigco.famapp.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.sigco.famapp.dto.PersonDto;
 import org.sigco.famapp.exception.ConflictException;
@@ -31,7 +32,7 @@ public class PersonController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public PersonDto findById(
-			@PathVariable(value = "id") int id) throws NotFoundException {
+			@PathVariable(value = "id") UUID id) throws NotFoundException {
 		return personService.findOneById(id);
 	}
 
