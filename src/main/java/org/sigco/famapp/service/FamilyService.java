@@ -6,6 +6,9 @@ import java.util.UUID;
 
 import com.google.common.collect.Lists;
 import org.sigco.famapp.dto.FamilyDto;
+import org.sigco.famapp.dto.FamilyWithPeople;
+import org.sigco.famapp.dto.IFamilyDto;
+import org.sigco.famapp.dto.PersonDto;
 import org.sigco.famapp.exception.ConflictException;
 import org.sigco.famapp.exception.NotFoundException;
 import org.sigco.famapp.repository.FamilyRepository;
@@ -16,6 +19,9 @@ import org.springframework.stereotype.Service;
 public class FamilyService implements IFamilyService {
 	@Autowired
 	private FamilyRepository familyRepository;
+
+	@Autowired
+	private PersonService personService;
 
 	@Override
 	public FamilyDto findOneById(UUID id) throws NotFoundException {
@@ -69,8 +75,18 @@ public class FamilyService implements IFamilyService {
 	}
 
 	@Override
-	public FamilyDto findByFamilyName(String familyName) {
-		return findFamilyByFamilyname(familyName);
+	public IFamilyDto findByFamilyName(String familyName, boolean returnMembers) throws NotFoundException {
+		if (!returnMembers) {
+			return findFamilyByFamilyname(familyName);
+		} else {
+			FamilyDto familyDto = findFamilyByFamilyname(familyName);
+			List<UUID> peopleIds = familyDto.getMembers();
+			List<PersonDto> people = new ArrayList<>();
+			for (UUID id: peopleIds) {
+				people.add(personService.findOneById(id));
+			}
+			return new FamilyWithPeople(familyDto.getId(), familyDto.getFamilyName(), people);
+		}
 	}
 
 	@Override

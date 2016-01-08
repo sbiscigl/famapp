@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.sigco.famapp.dto.FamilyDto;
+import org.sigco.famapp.dto.IFamilyDto;
 import org.sigco.famapp.exception.ConflictException;
 import org.sigco.famapp.exception.NotFoundException;
 
@@ -18,9 +19,9 @@ public interface IFamilyService {
 
 	void delete(FamilyDto familyDto) throws NotFoundException;
 
-	FamilyDto findFamilyByFamilyname(String familyName);
+	IFamilyDto findFamilyByFamilyname(String familyName);
 
-	FamilyDto findByFamilyName(String familyName);
+	IFamilyDto findByFamilyName(String familyName, boolean returnMembers) throws NotFoundException;
 
 	boolean isFamiliyPresent(String familyName);
 

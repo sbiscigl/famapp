@@ -6,6 +6,10 @@
     var familyName = document.getElementById('familyname');
     var familyNameButton = document.getElementById('get-family');
     var famliyResponse = document.getElementById('familyresponse');
+    var familyNameMembersButton = document.getElementById('get-family-members');
+    var familyMemebersResponse = document.getElementById('familyresponsememebers');
+    var memberlist = document.getElementById('memberlist');
+    familyNameMembersButton.onclick = familyMembersListener;
     familyNameButton.onclick = famliyLister;
     sumbitButton.onclick = submitListener;
 
@@ -31,6 +35,38 @@
         myRequest.send();
     }
 
+    function getMembersFromResponse(responsetext) {
+        var response = JSON.parse(responsetext);
+        var memeberList = response.members;
+        var nameList = {};
+        var member;
+        for (member in memeberList) {
+            nameList.add(member.firstName + " " + member.lastName);
+        }
+        return nameList;
+    }
+
+    function addToNameList(nameList) {
+        var name;
+        for(name in nameList) {
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode("Four"));
+        }
+    }
+
+    function getfamilymembers(familyname) {
+        var myRequest = new XMLHttpRequest();
+        myRequest.onreadystatechange = function () {
+            console.log(myRequest.responseText);
+            familyMemebersResponse.textContent = myRequest.responseText;
+            var nameList = getMembersFromResponse(myRequest.responseText);
+            addToNameList(nameList);
+        };
+        myRequest.open("GET", "http://localhost:8080/families?familyName=" + familyname + "&returnMembers=true");
+        myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        myRequest.send();
+    }
+
     function famliyLister () {
         var validate = true;
         var inputFam = familyName.value.split(" ");
@@ -42,6 +78,20 @@
             alert("Not all required fields entered");
         } else {
             getfamily(familyName.value);
+        };
+    }
+
+    function familyMembersListener () {
+        var validate = true;
+        var inputFam = familyName.value.split(" ");
+        if (inputFam.length > 1) {
+            validate = false;
+        };
+
+        if (validate === false) {
+            alert("Not all required fields entered");
+        } else {
+            getfamilymembers(familyName.value);
         };
     }
 

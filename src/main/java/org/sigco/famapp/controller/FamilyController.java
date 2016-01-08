@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.sigco.famapp.dto.FamilyDto;
+import org.sigco.famapp.dto.IFamilyDto;
 import org.sigco.famapp.exception.ConflictException;
 import org.sigco.famapp.exception.NotFoundException;
 import org.sigco.famapp.service.FamilyService;
@@ -29,8 +30,11 @@ public class FamilyController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET, params = {"familyName"})
-	public FamilyDto findByFamilyName( @RequestParam(value = "familyName") String familyName) throws NotFoundException {
-		return familySerivce.findByFamilyName(familyName);
+	public IFamilyDto findByFamilyName(
+			@RequestParam(value = "familyName") String familyName,
+			@RequestParam(value = "returnMembers", required = false, defaultValue = "false")boolean returnMembers)
+			throws NotFoundException {
+		return familySerivce.findByFamilyName(familyName, returnMembers);
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)

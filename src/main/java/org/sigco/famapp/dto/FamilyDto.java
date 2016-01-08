@@ -11,12 +11,12 @@ import org.springframework.data.cassandra.mapping.Table;
 @Data
 @EqualsAndHashCode
 @Table
-public class FamilyDto {
+public class FamilyDto implements IFamilyDto{
 	@PrimaryKey
 	private UUID id;
 
 	private String familyName;
-	private List<UUID> members;
+	protected List<UUID> members;
 
 	public FamilyDto() {id = UUID.randomUUID();}
 
