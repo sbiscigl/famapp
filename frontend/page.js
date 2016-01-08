@@ -88,6 +88,11 @@
     };
 
     function familyMembersListener () {
+        var listItems = Array.prototype.slice.call(memberlist.childNodes);
+        var i;
+        while (i = listItems.pop()) {
+            memberlist.removeChild(i);
+        }
         var validate = true;
         var inputFam = familyName.value.split(" ");
         if (inputFam.length > 1) {
