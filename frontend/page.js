@@ -28,6 +28,7 @@
         };
         myRequest.open("GET", "http://localhost:8080/families?familyName=" + familyname);
         myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        myRequest.send();
     }
 
     function famliyLister () {
