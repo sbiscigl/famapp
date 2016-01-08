@@ -16,56 +16,63 @@
     function postperson (firstname, lastname) {
         var myRequest = new XMLHttpRequest();
         myRequest.onreadystatechange = function () {
-            console.log(myRequest.responseText);
-            responsePerson.textContent = myRequest.responseText;
+            if (myRequest.readyState === 4) {
+                console.log(myRequest.responseText);
+                responsePerson.textContent = myRequest.responseText;
+            }
         };
         myRequest.open("POST", "http://localhost:8080/people");
         myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         myRequest.send(JSON.stringify({firstName:firstname, lastName:lastname}));
-    }
+    };
 
     function getfamily (familyname) {
         var myRequest = new XMLHttpRequest();
         myRequest.onreadystatechange = function () {
-            console.log(myRequest.responseText);
-            famliyResponse.textContent = myRequest.responseText;
+            if (myRequest.readyState === 4) {
+                console.log(myRequest.responseText);
+                famliyResponse.textContent = myRequest.responseText;
+            }
         };
         myRequest.open("GET", "http://localhost:8080/families?familyName=" + familyname);
         myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         myRequest.send();
-    }
+    };
 
     function getMembersFromResponse(responsetext) {
         var response = JSON.parse(responsetext);
-        var memeberList = response.members;
-        var nameList = {};
-        var member;
-        for (member in memeberList) {
-            nameList.add(member.firstName + " " + member.lastName);
+        var memberList = response.members;
+        var nameList = [];
+        var key;
+        for (key in memberList) {
+            nameList.push(memberList[key].firstName + " " + memberList[key].lastName);
         }
         return nameList;
-    }
+    };
 
     function addToNameList(nameList) {
-        var name;
-        for(name in nameList) {
+        var key;
+        for(key in nameList) {
             var li = document.createElement("li");
-            li.appendChild(document.createTextNode("Four"));
+            li.appendChild(document.createTextNode(nameList[key]));
+            memberlist.appendChild(li);
         }
-    }
+    };
 
     function getfamilymembers(familyname) {
         var myRequest = new XMLHttpRequest();
         myRequest.onreadystatechange = function () {
-            console.log(myRequest.responseText);
-            familyMemebersResponse.textContent = myRequest.responseText;
-            var nameList = getMembersFromResponse(myRequest.responseText);
-            addToNameList(nameList);
+            if (myRequest.readyState === 4) {
+                console.log(myRequest.responseText);
+                familyMemebersResponse.textContent = myRequest.responseText;
+                var nameList = getMembersFromResponse(myRequest.responseText);
+                addToNameList(nameList);
+            }
         };
         myRequest.open("GET", "http://localhost:8080/families?familyName=" + familyname + "&returnMembers=true");
         myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         myRequest.send();
-    }
+    };
 
     function famliyLister () {
         var validate = true;
@@ -73,13 +80,12 @@
         if (inputFam.length > 1) {
             validate = false;
         };
-
         if (validate === false) {
             alert("Not all required fields entered");
         } else {
             getfamily(familyName.value);
         };
-    }
+    };
 
     function familyMembersListener () {
         var validate = true;
@@ -87,13 +93,12 @@
         if (inputFam.length > 1) {
             validate = false;
         };
-
         if (validate === false) {
             alert("Not all required fields entered");
         } else {
             getfamilymembers(familyName.value);
         };
-    }
+    };
 
     function submitListener () {
         var validate = true;
@@ -106,11 +111,10 @@
             inputArrayTwo.length > 1) {
             validate = false;
         };
-
         if (validate === false) {
             alert("Not all required fields entered");
         } else {
             postperson(firstNameBox.value, lastNameBox.value);
         };
-    }
+    };
 }());
