@@ -17,6 +17,10 @@ Thumbs.db
 .idea/
 *.iml
 
+# Node created #
+################
+node_modules/
+
 # Target directory #
 ####################
 target/

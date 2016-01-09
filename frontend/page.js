@@ -21,7 +21,7 @@
                 responsePerson.textContent = myRequest.responseText;
             }
         };
-        myRequest.open("POST", "http://localhost:8080/people");
+        myRequest.open("POST", "http://10.0.0.2:8080/people");
         myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         myRequest.send(JSON.stringify({firstName:firstname, lastName:lastname}));
     };
@@ -34,7 +34,7 @@
                 famliyResponse.textContent = myRequest.responseText;
             }
         };
-        myRequest.open("GET", "http://localhost:8080/families?familyName=" + familyname);
+        myRequest.open("GET", "http://10.0.0.2:8080/families?familyName=" + familyname);
         myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         myRequest.send();
     };
@@ -69,7 +69,7 @@
                 addToNameList(nameList);
             }
         };
-        myRequest.open("GET", "http://localhost:8080/families?familyName=" + familyname + "&returnMembers=true");
+        myRequest.open("GET", "http://10.0.0.2:8080/families?familyName=" + familyname + "&returnMembers=true");
         myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         myRequest.send();
     };
