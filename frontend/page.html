@@ -4,40 +4,36 @@
         <title>famapp</title>
     </head>
     <body>
-        <div>
-            <p>First Name</p>
-            <input type='text' name='firstname' id='firstname'></input>
+        <h1 class="famheader">Famapp</h1>
+        <div class='person-container'>
+            <div class="firstname-container">
+                <p>First Name</p>
+                <input type='text' name='firstname' id='firstname' placeholder='First Name'></input>
+            </div>
+            <div class="lastname-container">
+                <p>Last Name</p>
+                <input type='text' name='lastname' id='lastname' placeholder='First Name'></input>
+            </div>
+            <div class="personbutton-container">
+                <button id='post-person' class="post-person">Post Person</button>
+            </div>
         </div>
-        <div>
-            <p>Last Name</p>
-            <input type='text' name='lastname' id='lastname'></input>
+        <div class="family-container">
+            <p>Family Name Lookup</p>
+            <input type='text' name='familyname' id='familyname' placeholder='Family Name'></input>
+            <button id='get-family' class="post-person">Get Family</button>
+            <button id="get-family-members" class="post-person">Get Family Members</button>
         </div>
-        <div>
-            <button id='post-person'>Post Person</button>
-        </div>
-        <div>
+        <div class="person-response">
             <label id='person-response'></label>
         </div>
-        <div>
-            <p>Family Name Lookup</p>
-            <input type='text' name='familyname' id='familyname'></input>
-        </div>
-        <div>
-            <button id='get-family'>Get Family</button>
-        </div>
-        <div>
+        <div class="family response">
             <label id='familyresponse'></label>
-        </div>
-        <div>
-            <button id="get-family-members">Get Family Members</button>
-        </div>
-        <div>
             <label id='familyresponsememebers'></label>
-        </div>
-        <div>
             <ul id="memberlist"></ul>
         </div>
     </body>
     <script src='page.js'></script>
+    <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <link rel='stylesheet' type='text/css' href='style.css'>
 </html>
