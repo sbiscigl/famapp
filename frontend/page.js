@@ -4,21 +4,22 @@
     var sumbitButton = document.getElementById('post-person');
     var responsePerson = document.getElementById('person-response');
     var familyName = document.getElementById('familyname');
-    var familyNameButton = document.getElementById('get-family');
-    var famliyResponse = document.getElementById('familyresponse');
+    // var familyNameButton = document.getElementById('get-family');
+    // var famliyResponse = document.getElementById('familyresponse');
     var familyNameMembersButton = document.getElementById('get-family-members');
     var familyMemebersResponse = document.getElementById('familyresponsememebers');
     var memberlist = document.getElementById('memberlist');
     familyNameMembersButton.onclick = familyMembersListener;
-    familyNameButton.onclick = famliyLister;
+    // familyNameButton.onclick = famliyLister;
     sumbitButton.onclick = submitListener;
 
     function postperson (firstname, lastname) {
         var myRequest = new XMLHttpRequest();
         myRequest.onreadystatechange = function () {
             if (myRequest.readyState === 4) {
-                console.log(myRequest.responseText);
-                responsePerson.textContent = myRequest.responseText;
+                // for debugging
+                // console.log(myRequest.responseText);
+                // responsePerson.textContent = myRequest.responseText;
             }
         };
         myRequest.open("POST", "http://172.27.1.16:8080/people");
@@ -26,18 +27,18 @@
         myRequest.send(JSON.stringify({firstName:firstname, lastName:lastname}));
     };
 
-    function getfamily (familyname) {
-        var myRequest = new XMLHttpRequest();
-        myRequest.onreadystatechange = function () {
-            if (myRequest.readyState === 4) {
-                console.log(myRequest.responseText);
-                famliyResponse.textContent = myRequest.responseText;
-            }
-        };
-        myRequest.open("GET", "http://172.27.1.16:8080/families?familyName=" + familyname);
-        myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        myRequest.send();
-    };
+    // function getfamily (familyname) {
+    //     var myRequest = new XMLHttpRequest();
+    //     myRequest.onreadystatechange = function () {
+    //         if (myRequest.readyState === 4) {
+    //             console.log(myRequest.responseText);
+    //             famliyResponse.textContent = myRequest.responseText;
+    //         }
+    //     };
+    //     myRequest.open("GET", "http://172.27.1.16:8080/families?familyName=" + familyname);
+    //     myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    //     myRequest.send();
+    // };
 
     function getMembersFromResponse(responsetext) {
         var response = JSON.parse(responsetext);
@@ -63,10 +64,12 @@
         var myRequest = new XMLHttpRequest();
         myRequest.onreadystatechange = function () {
             if (myRequest.readyState === 4) {
-                console.log(myRequest.responseText);
-                familyMemebersResponse.textContent = myRequest.responseText;
-                var nameList = getMembersFromResponse(myRequest.responseText);
-                addToNameList(nameList);
+                // console.log(myRequest.responseText);
+                // familyMemebersResponse.textContent = myRequest.responseText;
+                if (myRequest.status === 200) {
+                    var nameList = getMembersFromResponse(myRequest.responseText);
+                    addToNameList(nameList);
+                }
             }
         };
         myRequest.open("GET", "http://172.27.1.16:8080/families?familyName=" + familyname + "&returnMembers=true");
@@ -74,18 +77,18 @@
         myRequest.send();
     };
 
-    function famliyLister () {
-        var validate = true;
-        var inputFam = familyName.value.split(" ");
-        if (inputFam.length > 1) {
-            validate = false;
-        };
-        if (validate === false) {
-            alert("Not all required fields entered");
-        } else {
-            getfamily(familyName.value);
-        };
-    };
+    // function famliyLister () {
+    //     var validate = true;
+    //     var inputFam = familyName.value.split(" ");
+    //     if (inputFam.length > 1) {
+    //         validate = false;
+    //     };
+    //     if (validate === false) {
+    //         alert("Not all required fields entered");
+    //     } else {
+    //         getfamily(familyName.value);
+    //     };
+    // };
 
     function familyMembersListener () {
         var listItems = Array.prototype.slice.call(memberlist.childNodes);
