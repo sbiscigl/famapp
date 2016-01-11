@@ -14,8 +14,8 @@ public class ExceptionController {
 	@ExceptionHandler(value = NotFoundException.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	@ResponseBody
-	public NotFoundException notFoundException(NotFoundException exception) {
-		return exception;
+	public String notFoundException(NotFoundException exception) {
+		return exception.getMessage();
 	}
 
 	@ExceptionHandler(value = ConflictException.class)

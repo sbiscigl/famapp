@@ -65,12 +65,16 @@ public class FamilyService implements IFamilyService {
 	}
 
 	@Override
-	public FamilyDto findFamilyByFamilyname (String familyName) {
-		return familyRepository.getFamilyByName(familyName);
+	public FamilyDto findFamilyByFamilyname (String familyName) throws NotFoundException {
+		FamilyDto familyDto = familyRepository.getFamilyByName(familyName);
+		if (familyDto == null) {
+			throw new NotFoundException("No family found with that name");
+		}
+		return familyDto;
 	}
 
 	@Override
-	public boolean isFamiliyPresent(String familyName) {
+	public boolean isFamiliyPresent(String familyName) throws NotFoundException {
 		return findFamilyByFamilyname(familyName) == null;
 	}
 

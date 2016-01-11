@@ -19,11 +19,11 @@ public interface IFamilyService {
 
 	void delete(FamilyDto familyDto) throws NotFoundException;
 
-	IFamilyDto findFamilyByFamilyname(String familyName);
+	IFamilyDto findFamilyByFamilyname(String familyName) throws NotFoundException;
 
 	IFamilyDto findByFamilyName(String familyName, boolean returnMembers) throws NotFoundException;
 
-	boolean isFamiliyPresent(String familyName);
+	boolean isFamiliyPresent(String familyName) throws NotFoundException;
 
 	void updateFamilyMembers(UUID id, UUID personId);
 }

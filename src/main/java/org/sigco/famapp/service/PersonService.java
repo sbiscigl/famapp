@@ -31,7 +31,7 @@ public class PersonService implements IPersonService{
 	}
 
 	@Override
-	public PersonDto create(PersonDto personDto) throws ConflictException {
+	public PersonDto create(PersonDto personDto) throws ConflictException, NotFoundException {
 		PersonDto createdDto = PersonRepository.save(personDto);
 		if (!familyService.isFamiliyPresent(createdDto.getLastName())) {
 			UUID familyId = familyService.findFamilyByFamilyname(createdDto.getLastName()).getId();
