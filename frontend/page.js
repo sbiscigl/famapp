@@ -22,7 +22,7 @@
                 // responsePerson.textContent = myRequest.responseText;
             }
         };
-        myRequest.open("POST", "http://172.27.1.16:8080/people");
+        myRequest.open("POST", "http://192.168.1.66:8080/people");
         myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         myRequest.send(JSON.stringify({firstName:firstname, lastName:lastname}));
     };
@@ -72,7 +72,7 @@
                 }
             }
         };
-        myRequest.open("GET", "http://172.27.1.16:8080/families?familyName=" + familyname + "&returnMembers=true");
+        myRequest.open("GET", "http://192.168.1.66:8080/families?familyName=" + familyname + "&returnMembers=true");
         myRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         myRequest.send();
     };

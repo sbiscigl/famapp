@@ -33,14 +33,15 @@ public class PersonService implements IPersonService{
 	@Override
 	public PersonDto create(PersonDto personDto) throws ConflictException, NotFoundException {
 		PersonDto createdDto = PersonRepository.save(personDto);
-		if (!familyService.isFamiliyPresent(createdDto.getLastName())) {
-			UUID familyId = familyService.findFamilyByFamilyname(createdDto.getLastName()).getId();
+		try {
+            familyService.isFamiliyPresent(createdDto.getLastName());
+            UUID familyId = familyService.findFamilyByFamilyname(createdDto.getLastName()).getId();
 			familyService.updateFamilyMembers(familyId, createdDto.getId());
-		} else {
-			List<UUID> members = new ArrayList<>();
+        } catch (NotFoundException e) {
+            List<UUID> members = new ArrayList<>();
 			members.add(createdDto.getId());
 			familyService.create(new FamilyDto(createdDto.getLastName(), members));
-		}
+        }
 		return createdDto;
 	}
 
